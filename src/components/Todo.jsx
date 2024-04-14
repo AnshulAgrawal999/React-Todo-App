@@ -8,7 +8,9 @@ const Todo = () => {
 
   const [ todoList , setTodoList ] = useState( [] )  ;
 
-  const [ pagestatus , setPageStatus ] = useState( 1 )  ;
+  const [ pageStatus , setPageStatus ] = useState( 1 )  ;
+
+  const [ page , setPage ]  = useState( 0 )  ;
 
   const getData = async () => {
 
@@ -17,7 +19,7 @@ const Todo = () => {
       let res = await axios({
         method: 'get' ,
         baseURL: 'http://localhost:3000' ,
-        url: `/todos`
+        url: `/todos?_start=${page*6}&_limit=6`
       });
   
       console.log( res )  ;
@@ -43,7 +45,7 @@ const Todo = () => {
 
   const checkPageStatus = ( el ) => {
     
-    if( pagestatus == 1 || el.status + '' === pagestatus )
+    if( pageStatus == 1 || el.status + '' === pageStatus )
     {
       return true  ;
     } 
@@ -85,16 +87,10 @@ const Todo = () => {
     status = !status  ;
 
     const updatedTodo = { status }  ;
-
-    const options = { year: 'numeric', day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }  ;
-
-    const str = new Date().toLocaleString( 'en-US', options )  ;
-
-    const date = str.slice( 0 , 12 ) + ' at' + str.slice( 13 )  ;
     
-    status ?  updatedTodo.completionDate = date : updatedTodo.completionDate = ''  ;
+    status ?  updatedTodo.completionDate = Date.now() : updatedTodo.completionDate = ''  ;
 
-    console.log( id , status , date )  ;
+    console.log( id , status  )  ;
 
     try{
       let res = await axios({
@@ -157,6 +153,8 @@ const Todo = () => {
       {
         todoList.filter( checkPageStatus ).map( el => <TodoItem { ...el } key={el.id} handleUpdate={handleUpdate} handleDelete={handleDelete} handleEdit={handleEdit}/> )  
       }
+
+
 
     </div>
   )
