@@ -1,4 +1,4 @@
-
+import React from "react";
 
 const TodoItem = ( { id , title , status , Name , completionDate , handleUpdate , handleDelete , handleEdit } ) => {
   return (
@@ -18,4 +18,4 @@ const TodoItem = ( { id , title , status , Name , completionDate , handleUpdate 
   )
 }
 
-export default TodoItem  ;
+export default React.memo(TodoItem)  ;

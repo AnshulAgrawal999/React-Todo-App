@@ -1,6 +1,8 @@
-import { useState } from "react";
+import React , { useState } from "react";
 
 const TodoInput = ( {handleAdd} ) => {
+
+  const [ todo , setTodo ] = useState( { title : "" , Name : "" } )  ;
 
   const handleClick = () => {
     handleAdd( todo )  ;
@@ -16,8 +18,6 @@ const TodoInput = ( {handleAdd} ) => {
     setTodo( { title : todo.title , Name : e.target.value } )  ;
   }
 
-  const [ todo , setTodo ] = useState( { title : "" , Name : "" } )  ;
-
   return (
     <div>
       <input onChange={ handleTitle } type='text' id='title' placeholder='title' value={todo.title} /> 
@@ -27,4 +27,4 @@ const TodoInput = ( {handleAdd} ) => {
   )
 }
 
-export default TodoInput  ;
+export default React.memo(TodoInput)  ;

@@ -4,21 +4,21 @@
       "title": "Learn React",
       "status": true,
       "Name": "Anshul Agrawal",
-      "completionDate": "Apr 10, 2024 at 06:58 PM",
+      "completionDate": "Apr 15, 2024 at 12:14 AM",
       "id": 1
     },
     {
       "title": "Learn Redux",
-      "status": false,
+      "status": true,
       "Name": "Anshul Agrawal",
-      "completionDate": "",
+      "completionDate": "Apr 15, 2024 at 12:14 AM",
       "id": 2
     },
     {
       "title": "Learn Node",
-      "status": true,
+      "status": false,
       "Name": "Anshul Agrawal",
-      "completionDate": "Apr 10, 2024 at 07:02 PM",
+      "completionDate": "",
       "id": 3
     },
     {

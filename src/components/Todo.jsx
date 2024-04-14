@@ -8,35 +8,48 @@ const Todo = () => {
 
   const [ todoList , setTodoList ] = useState( [] )  ;
 
-  const [ pagestatus , setPageStatus ] = useState( false )  ;
+  const [ pagestatus , setPageStatus ] = useState( 1 )  ;
 
-  const getData = async ( ) => {
+  const getData = async () => {
+
     try{
 
       let res = await axios({
         method: 'get' ,
         baseURL: 'http://localhost:3000' ,
-        url: `/todos?status=${pagestatus}`
+        url: `/todos`
       });
   
       console.log( res )  ;
 
       setTodoList( res.data )  ;
+
     }catch( err )
     {
       console.log( err )  ;
     }
   }
 
-  const handlePageStatus = ( e ) => {
-    setPageStatus( e.target.value )  ;
-
-    getData()  ;
-  }
-
   useEffect( () => {
     getData()  ;
   } , [] )  ;
+
+  const handlePageStatus = ( e ) => {
+
+    setPageStatus( e.target.value )  ;
+
+    console.log( 'Page Status-' , e.target.value )  ;
+  }
+
+  const checkPageStatus = ( el ) => {
+    
+    if( pagestatus == 1 || el.status + '' === pagestatus )
+    {
+      return true  ;
+    } 
+
+    return false  ;
+  }
 
   const handleAdd = async ( { title , Name } ) => {
 
@@ -125,26 +138,26 @@ const Todo = () => {
   }
 
   return (
-    <div style={ { textAlign : "center" , margin : "auto" } }  >
+    <div style={ { textAlign : 'center' , margin : 'auto' } }  >
 
       <h1> React Todo App </h1>
 
-      <select name="status" id="status" onChange={handlePageStatus} >
+      <select name='status' id='status' onChange={handlePageStatus} >
 
-        <optgroup label="Status">
+          <option value={1} > Select Status </option>
 
           <option value={true} > completed </option>
 
           <option value={false} > pending </option>
 
-        </optgroup >
-
       </select>
       
       <TodoInput handleAdd={handleAdd} />  
+
       {
-        todoList.map( el => <TodoItem { ...el } key={el.id} handleUpdate={handleUpdate} handleDelete={handleDelete} handleEdit={handleEdit}/> )  
+        todoList.filter( checkPageStatus ).map( el => <TodoItem { ...el } key={el.id} handleUpdate={handleUpdate} handleDelete={handleDelete} handleEdit={handleEdit}/> )  
       }
+
     </div>
   )
 }
