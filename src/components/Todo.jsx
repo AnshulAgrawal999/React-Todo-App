@@ -19,7 +19,7 @@ const Todo = () => {
       let res = await axios({
         method: 'get' ,
         baseURL: 'http://localhost:3000' ,
-        url: `/todos?_start=${page*6}&_limit=6`
+        url: `/todos?_start=${page*6}&_limit=6&_sort=completionDate`
       });
   
       console.log( res )  ;
@@ -153,8 +153,6 @@ const Todo = () => {
       {
         todoList.filter( checkPageStatus ).map( el => <TodoItem { ...el } key={el.id} handleUpdate={handleUpdate} handleDelete={handleDelete} handleEdit={handleEdit}/> )  
       }
-
-
 
     </div>
   )
